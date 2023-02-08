@@ -12,11 +12,54 @@ export class MyChartTestComponent {
   single= [
     {
       "name": "Germany",
-      "value": 8940000
+      "value": 40632,
+      "extra": {
+        "code": "de"
+      }
     },
     {
-      "name": "USA",
-      "value": 5000000
+      "name": "France",
+      "value": 36745,
+      "extra": {
+        "code": "fr"
+      }
+    },
+    {
+      "name": "United Kingdom",
+      "value": 36240,
+      "extra": {
+        "code": "uk"
+      }
+    },
+    {
+      "name": "Spain",
+      "value": 33000,
+      "extra": {
+        "code": "es"
+      }
+    },
+    {
+      "name": "Italy",
+      "value": 35800,
+      "extra": {
+        "code": "it"
+      }
+    },
+    {
+      "name": "Antarctica",
+      "value": 14438
+    },
+    {
+      "name": "Turkey",
+      "value": 21013
+    },
+    {
+      "name": "France",
+      "value": 15620
+    },
+    {
+      "name": "Togo",
+      "value": 31924
     }
   ]
 

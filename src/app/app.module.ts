@@ -8,6 +8,7 @@ import { MyLoginComponent } from './my-login/my-login.component';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MyChartTestComponent } from './my-chart-test/my-chart-test.component';
+import { MyDashboardComponent } from './my-dashboard/my-dashboard.component';
 
 
 // @ts-ignore
@@ -16,7 +17,8 @@ import { MyChartTestComponent } from './my-chart-test/my-chart-test.component';
     AppComponent,
     MyChartComponent,
     MyLoginComponent,
-    MyChartTestComponent
+    MyChartTestComponent,
+    MyDashboardComponent
   ],
   imports: [
     BrowserModule,
@@ -28,7 +30,8 @@ import { MyChartTestComponent } from './my-chart-test/my-chart-test.component';
       {path: '', component: MyLoginComponent},
       {path: 'login', component: MyLoginComponent},
       {path: 'chart', component: MyChartComponent},
-      {path: 'chart2', component: MyChartTestComponent}
+      {path: 'chart2', component: MyChartTestComponent},
+      {path: 'dashboard', component: MyDashboardComponent}
     ])
   ],
   providers: [],

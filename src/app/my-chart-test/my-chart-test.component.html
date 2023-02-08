@@ -1,12 +1,13 @@
 <div class="d-flex justify-content-center">
   <ngx-charts-pie-chart
-    [view]="[1000,400]"
+    [view]="[1000,500]"
     [results]="single"
     [legendTitle]="'Product Sale Chart'"
     [legend]="true"
     [gradient]="true"
-    [legendPosition]="legendPosition"
     [tooltipDisabled]="false"
+    [labels]="true"
+    scheme="picnic"
   >
   </ngx-charts-pie-chart>
 </div>
