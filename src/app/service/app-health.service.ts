@@ -11,7 +11,7 @@ import {convertToParamMap} from "@angular/router";
 })
 export class AppHealthService {
 
-  private url = "http://localhost:8080/";
+  private url = "http://localhost:8080";
 
   constructor(private httpClient: HttpClient) {
 

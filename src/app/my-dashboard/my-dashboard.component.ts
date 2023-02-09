@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Router} from "@angular/router";
 import {AppHealthService} from "../service/app-health.service";
 import * as moment from "moment";
@@ -14,16 +14,19 @@ export class MyDashboardComponent implements OnInit {
   tipo: string;
   pieHidden: boolean;
   lineHidden: boolean;
+  giorno!: any;
 
   constructor(private appHealthService: AppHealthService, private router: Router) {
     this.tipo = "giorno";
-    this.pieHidden=true;
-    this.lineHidden=false;
+    this.pieHidden = true;
+    this.lineHidden = false;
+
 
   }
 
   ngOnInit(): void {
-    this.getDataByGiorno(moment());
+    this.giorno = moment().format("yyyy-MM-DD")
+    this.getDataByGiorno("2023-02-08");
     console.log("DIO PORCONE")
   }
 
@@ -36,7 +39,11 @@ export class MyDashboardComponent implements OnInit {
     this.pieHidden = !this.pieHidden;
   }
 
-  getDataByGiorno(giorno: moment.Moment): void {
-    this.appHealthService.getStatisticheGiornaliereByGiorno(giorno.format("yyyy/MM/DD")).subscribe(data => this.data = data);
+  getDataByGiorno(giorno: any): void {
+    this.appHealthService.getStatisticheGiornaliereByGiorno(giorno).subscribe(data => {
+        console.log(data)
+        this.data = data
+      }
+    );
   }
 }
