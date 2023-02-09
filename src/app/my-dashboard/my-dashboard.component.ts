@@ -5,6 +5,7 @@ import * as moment from "moment";
 import {Giornaliero} from "../entities/giornaliero";
 import {Settimanale} from "../entities/settimanale";
 import {Mensile} from "../entities/mensile";
+import * as Console from "console";
 
 @Component({
   selector: 'app-my-dashboard',
@@ -29,8 +30,8 @@ export class MyDashboardComponent implements OnInit {
 
   ngOnInit(): void {
     this.giorno = moment().format("yyyy-MM-DD")
-    this.getDataByGiorno(this.giorno);
-    console.log(this.data)
+    this.getDataByGiorno("2023-02-08");
+    //console.log(this.data)
     console.log("DIO PORCONE")
   }
 
@@ -45,10 +46,51 @@ export class MyDashboardComponent implements OnInit {
 
   getDataByGiorno(giorno: any): void {
     this.appHealthService.getStatisticheGiornaliereByGiorno(giorno).subscribe(data => {
-        this.data = data
+        this.data = this.formatList(data);
+        //this.data = data;
+        console.log(data);
+
+        console.log("format:");
         console.log(this.data)
-        console.log(this.data[2])
       }
     );
+  }
+  formatList(list: Giornaliero[]): any[] {
+    let sums = [0,0,0,0,0,0];
+    list.forEach(value => {sums[0]+= (value.attivoGiornaliero as number);
+    sums[1]+= (value.inattivoGiornaliero as number);
+      sums[2]+= (value.numPauseBreviGiornaliero as number);
+      sums[3]+= (value.numPauseRiposoGiornaliero as number);
+      sums[4]+= (value.troppoLontanoGiornaliero as number);
+      sums[5]+= (value.troppoVicinoGiornaliero as number)}
+    );
+    console.log(sums);
+    return [
+      {
+      "name": "Attivo giornaliero",
+      "value": sums[0]
+    },
+    {
+      "name": "Inattivo giornaliero",
+      "value": sums[1]
+    },
+    {
+      "name": "Numero pause brevi",
+      "value": sums[2]
+    },
+    {
+      "name": "Numero pause riposo",
+      "value": sums[3]
+    },
+      {
+        "name": "Troppo lontano",
+        "value": sums[4]
+      },
+      {
+        "name": "Troppo vicino",
+        "value": sums[5]
+      }
+    ]
+
   }
 }

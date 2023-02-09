@@ -25,7 +25,7 @@ export class MyChartComponent implements OnInit {
   getDataByGiorno(giorno: any): void {
     this.appHealthService.getStatisticheGiornaliereByGiorno(giorno).subscribe(data => {
         this.data = data
-        console.log(this.data)
+        //console.log(this.data)
       }
     );
   }
