@@ -1,4 +1,4 @@
-import { Component, NgModule } from '@angular/core';
+import {Component, Input, NgModule} from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
 import {LegendPosition} from "@swimlane/ngx-charts";
@@ -9,59 +9,8 @@ import {LegendPosition} from "@swimlane/ngx-charts";
   styleUrls: ['./my-chart-test.component.css']
 })
 export class MyChartTestComponent {
-  single= [
-    {
-      "name": "Germany",
-      "value": 40632,
-      "extra": {
-        "code": "de"
-      }
-    },
-    {
-      "name": "France",
-      "value": 36745,
-      "extra": {
-        "code": "fr"
-      }
-    },
-    {
-      "name": "United Kingdom",
-      "value": 36240,
-      "extra": {
-        "code": "uk"
-      }
-    },
-    {
-      "name": "Spain",
-      "value": 33000,
-      "extra": {
-        "code": "es"
-      }
-    },
-    {
-      "name": "Italy",
-      "value": 35800,
-      "extra": {
-        "code": "it"
-      }
-    },
-    {
-      "name": "Antarctica",
-      "value": 14438
-    },
-    {
-      "name": "Turkey",
-      "value": 21013
-    },
-    {
-      "name": "France",
-      "value": 15620
-    },
-    {
-      "name": "Togo",
-      "value": 31924
-    }
-  ]
+
+  @Input() data!: any;
 
 
   // options

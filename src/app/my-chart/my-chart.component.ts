@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, Input} from '@angular/core';
 
 @Component({
   selector: 'app-my-chart',
@@ -7,12 +7,6 @@ import { Component } from '@angular/core';
 })
 export class MyChartComponent {
 
-  saleData = [
-    { name: "Mobiles", value: 105000 },
-    { name: "Laptop", value: 55000 },
-    { name: "AC", value: 15000 },
-    { name: "Headset", value: 150000 },
-    { name: "Fridge", value: 20000 }
-  ];
+  @Input() data!: any;
 
 }

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import * as moment from "moment/moment";
 
 @Component({
   selector: 'app-my-login',
@@ -10,6 +11,7 @@ export class MyLoginComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
+    console.log(moment().format("MM/yyy/DD"))
   }
 
 }
