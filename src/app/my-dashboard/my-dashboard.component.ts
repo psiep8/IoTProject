@@ -24,7 +24,7 @@ export class MyDashboardComponent implements OnInit {
   dateSettimana!: any;
   months: string[] = ['JANUARY', 'FEBRUARY', 'MARCH', 'APRIL', 'MAY', 'JUNE', 'JULY', 'AUGUST', 'SEPTEMBER', 'OCTOBER', 'NOVEMBER', 'DECEMBER'];
   monthForm!: FormGroup;
-
+  giornoPost!: string;
   month!: string;
   statGiornaliere !: Giornaliero;
   statSettimanali!: Settimanale;
@@ -37,6 +37,9 @@ export class MyDashboardComponent implements OnInit {
   }
 
   ngOnInit(): void {
+
+    this.giornoPost = moment().format("dddd")
+    console.log(this.giornoPost)
     this.monthForm = new FormGroup({
       months: new FormControl()
     });
@@ -46,7 +49,6 @@ export class MyDashboardComponent implements OnInit {
       dateSettimana: new FormControl(),
     });
 
-    // this.giorno = moment().format("yyyy-MM-DD")
     //console.log(this.data)
     console.log("DIO PORCONE")
   }
