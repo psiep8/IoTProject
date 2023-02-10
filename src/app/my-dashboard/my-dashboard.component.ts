@@ -55,8 +55,8 @@ export class MyDashboardComponent implements OnInit {
 
   getDataByGiorno(giorno: any): void {
     this.appHealthService.getStatisticheGiornaliereByGiorno(giorno).subscribe(data => {
-        this.data = this.formatList(data);
-        //this.data = data;
+        //this.data = this.formatList(data);
+        this.data = data;
         console.log(data);
 
         console.log("format:");

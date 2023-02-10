@@ -40,7 +40,7 @@ export class AppHealthService {
   }
 
   getStatisticheGiornaliereByGiorno(giorno: any): Observable<Giornaliero[]> {
-    return this.httpClient.get<Giornaliero[]>((this.url + "/statistiche-giornaliere-date"), {
+    return this.httpClient.get<Giornaliero[]>((this.url + "/statistiche-giornaliere-date-prova"), {
       params: {
         giorno: giorno
       }
