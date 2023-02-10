@@ -6,6 +6,7 @@ import {Giornaliero} from "../entities/giornaliero";
 import {Settimanale} from "../entities/settimanale";
 import {Mensile} from "../entities/mensile";
 import * as Console from "console";
+import {FormControl, FormGroup, Validators} from "@angular/forms";
 
 @Component({
   selector: 'app-my-dashboard',
@@ -18,19 +19,27 @@ export class MyDashboardComponent implements OnInit {
   pieHidden: boolean;
   lineHidden: boolean;
   giorno!: any;
+  reactiveForm!: FormGroup;
+  dateGiorno!: any;
+  dateSettimana!: any;
+  month!: string;
   statGiornaliere !: Giornaliero;
   statSettimanali!: Settimanale;
   statMensili!: Mensile
 
   constructor(private appHealthService: AppHealthService, private router: Router) {
-    this.tipo = "giorno";
+    this.tipo = "";
     this.pieHidden = true;
     this.lineHidden = false;
   }
 
   ngOnInit(): void {
-    this.giorno = moment().format("yyyy-MM-DD")
-    this.getDataByGiorno("2023-02-08");
+    this.reactiveForm = new FormGroup({
+      dateGiorno: new FormControl(),
+      dateSettimana: new FormControl()
+    });
+
+    // this.giorno = moment().format("yyyy-MM-DD")
     //console.log(this.data)
     console.log("DIO PORCONE")
   }
@@ -55,33 +64,48 @@ export class MyDashboardComponent implements OnInit {
       }
     );
   }
+
+  getSettimanaByGiorno(giorno: any): void {
+    this.appHealthService.getStatisticaSettimanaleByGiorno(giorno).subscribe(data => {
+        //this.data = this.formatList(data);
+        //this.data = data;
+        console.log(data);
+
+        console.log("format:");
+        console.log(this.data)
+      }
+    );
+  }
+
   formatList(list: Giornaliero[]): any[] {
-    let sums = [0,0,0,0,0,0];
-    list.forEach(value => {sums[0]+= (value.attivoGiornaliero as number);
-    sums[1]+= (value.inattivoGiornaliero as number);
-      sums[2]+= (value.numeroPauseBreviGiornaliere as number);
-      sums[3]+= (value.numeroPauseRiposoGiornaliere as number);
-      sums[4]+= (value.troppoLontanoGiornaliero as number);
-      sums[5]+= (value.troppoVicinoGiornaliero as number)}
+    let sums = [0, 0, 0, 0, 0, 0];
+    list.forEach(value => {
+        sums[0] += (value.attivoGiornaliero as number);
+        sums[1] += (value.inattivoGiornaliero as number);
+        sums[2] += (value.numeroPauseBreviGiornaliere as number);
+        sums[3] += (value.numeroPauseRiposoGiornaliere as number);
+        sums[4] += (value.troppoLontanoGiornaliero as number);
+        sums[5] += (value.troppoVicinoGiornaliero as number)
+      }
     );
     console.log(sums);
     return [
       {
-      "name": "Attivo giornaliero",
-      "value": sums[0]
-    },
-    {
-      "name": "Inattivo giornaliero",
-      "value": sums[1]
-    },
-    {
-      "name": "Numero pause brevi",
-      "value": 5//sums[2]
-    },
-    {
-      "name": "Numero pause riposo",
-      "value": 2//sums[3]
-    },
+        "name": "Attivo giornaliero",
+        "value": sums[0]
+      },
+      {
+        "name": "Inattivo giornaliero",
+        "value": sums[1]
+      },
+      {
+        "name": "Numero pause brevi",
+        "value": sums[2]
+      },
+      {
+        "name": "Numero pause riposo",
+        "value": sums[3]
+      },
       {
         "name": "Troppo lontano",
         "value": sums[4]
@@ -93,4 +117,25 @@ export class MyDashboardComponent implements OnInit {
     ]
 
   }
+
+  getDataGiorno() {
+    this.reactiveForm.value.dateGiorno;
+    localStorage.setItem("dateGiorno", this.reactiveForm.value.dateGiorno)
+    this.getDataByGiorno(localStorage.getItem("dateGiorno"));
+    localStorage.removeItem("dateGiorno");
+  }
+
+  getDataSettimana() {
+    this.reactiveForm.value.dateSettimana;
+    localStorage.setItem("dateSettimana", this.reactiveForm.value.dateSettimana)
+    this.getSettimanaByGiorno(localStorage.getItem("dateSettimana"));
+    localStorage.removeItem("dateSettimana");
+  }
+
+  getDataMese() {
+    this.reactiveForm.value.month;
+    localStorage.setItem("month", this.reactiveForm.value.month)
+    this.getSettimanaByGiorno(localStorage.getItem("month"));
+  }
+
 }

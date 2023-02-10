@@ -10,6 +10,7 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MyChartTestComponent} from './my-chart-test/my-chart-test.component';
 import {MyDashboardComponent} from './my-dashboard/my-dashboard.component';
 import {HttpClientModule} from '@angular/common/http';
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 
 // @ts-ignore
 @NgModule({
@@ -33,7 +34,9 @@ import {HttpClientModule} from '@angular/common/http';
       {path: 'chart', component: MyChartComponent},
       {path: 'chart2', component: MyChartTestComponent},
       {path: 'dashboard', component: MyDashboardComponent}
-    ])
+    ]),
+    ReactiveFormsModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
