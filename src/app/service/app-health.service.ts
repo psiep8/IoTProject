@@ -47,6 +47,14 @@ export class AppHealthService {
     });
   }
 
+  getStatisticheGiornaliereByGiornoVista(giorno: any): Observable<Giornaliero[]> {
+    return this.httpClient.get<Giornaliero[]>((this.url + "/statistiche-giornaliere-date-frontend"), {
+      params: {
+        giorno: giorno
+      }
+    });
+  }
+
   getStatisticaSettimanaleByGiorno(giorno: any): Observable<Settimanale> {
     return this.httpClient.get<Settimanale>((this.url + "/statistica-settimanale-date"), {
       params: {

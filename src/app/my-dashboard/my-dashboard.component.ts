@@ -49,8 +49,8 @@ export class MyDashboardComponent implements OnInit {
       dateSettimana: new FormControl(),
     });
 
-    //console.log(this.data)
-    console.log("DIO PORCONE")
+    this.getDataByGiorno("2023-02-08")
+
   }
 
   changePeriodType(tipo: string): void {
@@ -63,11 +63,10 @@ export class MyDashboardComponent implements OnInit {
   }
 
   getDataByGiorno(giorno: any): void {
-    this.appHealthService.getStatisticheGiornaliereByGiorno(giorno).subscribe(data => {
-        this.data = this.formatList(data);
+    this.appHealthService.getStatisticheGiornaliereByGiornoVista(giorno).subscribe(data => {
+        //this.data = this.formatList(data);
         this.data = data;
         console.log(data);
-
         console.log("format:");
         console.log(this.data)
       }
@@ -97,47 +96,48 @@ export class MyDashboardComponent implements OnInit {
     );
   }
 
-  formatList(list: Giornaliero[]): any[] {
-    let sums = [0, 0, 0, 0, 0, 0];
-    list.forEach(value => {
-        sums[0] += (value.attivoGiornaliero as number);
-        sums[1] += (value.inattivoGiornaliero as number);
-        sums[2] += (value.numeroPauseBreviGiornaliere as number);
-        sums[3] += (value.numeroPauseRiposoGiornaliere as number);
-        sums[4] += (value.troppoLontanoGiornaliero as number);
-        sums[5] += (value.troppoVicinoGiornaliero as number)
-      }
-    );
-    console.log(sums);
-    return [
-      {
-        "name": "Attivo giornaliero",
-        "value": sums[0]
-      },
-      {
-        "name": "Inattivo giornaliero",
-        "value": sums[1]
-      },
-      {
-        "name": "Numero pause brevi",
-        "value": sums[2]
-      },
-      {
-        "name": "Numero pause riposo",
-        "value": sums[3]
-      },
-      {
-        "name": "Troppo lontano",
-        "value": sums[4]
-      },
-      {
-        "name": "Troppo vicino",
-        "value": sums[5]
-      }
-    ]
+  /*
+    formatList(list: Giornaliero[]): any[] {
+      let sums = [0, 0, 0, 0, 0, 0];
+      list.forEach(value => {
+          sums[0] += (value.attivoGiornaliero as number);
+          sums[1] += (value.inattivoGiornaliero as number);
+          sums[2] += (value.numeroPauseBreviGiornaliere as number);
+          sums[3] += (value.numeroPauseRiposoGiornaliere as number);
+          sums[4] += (value.troppoLontanoGiornaliero as number);
+          sums[5] += (value.troppoVicinoGiornaliero as number)
+        }
+      );
+      console.log(sums);
+      return [
+        {
+          "name": "Attivo giornaliero",
+          "value": sums[0]
+        },
+        {
+          "name": "Inattivo giornaliero",
+          "value": sums[1]
+        },
+        {
+          "name": "Numero pause brevi",
+          "value": sums[2]
+        },
+        {
+          "name": "Numero pause riposo",
+          "value": sums[3]
+        },
+        {
+          "name": "Troppo lontano",
+          "value": sums[4]
+        },
+        {
+          "name": "Troppo vicino",
+          "value": sums[5]
+        }
+      ]
 
-  }
-
+    }
+  */
   getDataGiorno() {
     localStorage.setItem("dateGiorno", this.reactiveForm.value.dateGiorno)
     this.getDataByGiorno(localStorage.getItem("dateGiorno"));
