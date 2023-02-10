@@ -25,7 +25,7 @@ export class AppHealthService {
         }
       })
     }
-  */
+
 
   getStatisticheGiornaliere(): Observable<Giornaliero[]> {
     return this.httpClient.get<Giornaliero[]>(this.url + "/statistiche-giornaliere");
@@ -46,11 +46,29 @@ export class AppHealthService {
       }
     });
   }
-
+*/
   getStatisticheGiornaliereByGiornoVista(giorno: any): Observable<Giornaliero[]> {
     return this.httpClient.get<Giornaliero[]>((this.url + "/statistiche-giornaliere-date-frontend"), {
       params: {
         giorno: giorno
+      }
+    });
+  }
+
+  getStatisticheSettimanaByGiornoVista(giorno: any): Observable<Settimanale> {
+    return this.httpClient.get<Settimanale>((this.url + "/statistiche-settimanali-date-frontend"), {
+        params: {
+          giorno: giorno
+        }
+      }
+    )
+      ;
+  }
+
+  getStatisticaMensileByMeseVista(mese: any): Observable<Mensile> {
+    return this.httpClient.get<Mensile>((this.url + "/statistiche-mensili-date-frontend"), {
+      params: {
+        mese: mese
       }
     });
   }
@@ -71,14 +89,15 @@ export class AppHealthService {
     });
   }
 
-  getSettimanaCount(): Observable<Settimanale> {
-    return this.httpClient.get<Settimanale>(this.url + "/stat-settimanale");
-  }
+  /*
+    getSettimanaCount(): Observable<Settimanale> {
+      return this.httpClient.get<Settimanale>(this.url + "/stat-settimanale");
+    }
 
-  getMeseCount(): Observable<Mensile> {
-    return this.httpClient.get<Mensile>(this.url + "/stat-mensile");
-  }
-
+    getMeseCount(): Observable<Mensile> {
+      return this.httpClient.get<Mensile>(this.url + "/stat-mensile");
+    }
+  */
   saveStatisticheSettimanali(statisticheSettimanali: Settimanale): Observable<Object> {
     return this.httpClient.post((this.url + "/save-statistiche-settimanali"), {
       statisticheSettimanali: statisticheSettimanali

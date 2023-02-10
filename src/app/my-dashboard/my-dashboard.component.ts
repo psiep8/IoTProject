@@ -18,7 +18,6 @@ export class MyDashboardComponent implements OnInit {
   tipo: string;
   pieHidden: boolean;
   lineHidden: boolean;
-  giorno!: any;
   reactiveForm!: FormGroup;
   dateGiorno!: any;
   dateSettimana!: any;
@@ -26,9 +25,6 @@ export class MyDashboardComponent implements OnInit {
   monthForm!: FormGroup;
   giornoPost!: string;
   month!: string;
-  statGiornaliere !: Giornaliero;
-  statSettimanali!: Settimanale;
-  statMensili!: Mensile
 
   constructor(private appHealthService: AppHealthService, private router: Router) {
     this.tipo = "";
@@ -38,7 +34,6 @@ export class MyDashboardComponent implements OnInit {
 
   ngOnInit(): void {
     this.giornoPost = moment().format("dddd")
-    console.log(this.giornoPost)
     this.monthForm = new FormGroup({
       months: new FormControl()
     });
@@ -47,7 +42,10 @@ export class MyDashboardComponent implements OnInit {
       dateGiorno: new FormControl(),
       dateSettimana: new FormControl(),
     });
+
     this.getDataByGiornoVista(moment(Date.now() - 1 * 24 * 3600 * 1000).format('yyyy-MM-DD'))
+    this.getSettimanaByGiornoVista(moment(Date.now() - 1 * 24 * 3600 * 1000).format('yyyy-MM-DD'))
+    this.getMeseByVista(this.months[0])
 
   }
 
@@ -63,39 +61,20 @@ export class MyDashboardComponent implements OnInit {
   getDataByGiornoVista(giorno: any): void {
     this.appHealthService.getStatisticheGiornaliereByGiornoVista(giorno).subscribe(data => {
         this.data = data;
-        console.log(data);
-        console.log("format:");
-        console.log(this.data)
       }
     );
   }
 
-  getDataByGiorno(giorno: any): void {
-    this.appHealthService.getStatisticheGiornaliereByGiorno(giorno).subscribe(data => {
+  getSettimanaByGiornoVista(giorno: any): void {
+    this.appHealthService.getStatisticheSettimanaByGiornoVista(giorno).subscribe(data => {
         this.data = data;
-        console.log(data);
-        console.log("format:");
-        console.log(this.data)
       }
     );
   }
 
-  getSettimanaByGiorno(giorno: any): void {
-    this.appHealthService.getStatisticaSettimanaleByGiorno(giorno).subscribe(data => {
+  getMeseByVista(mese: any): void {
+    this.appHealthService.getStatisticaMensileByMeseVista(mese).subscribe(data => {
         this.data = data;
-        console.log(data);
-        console.log("format:");
-        console.log(this.data)
-      }
-    );
-  }
-
-  getMese(mese: any): void {
-    this.appHealthService.getStatisticaMensileByMese(mese).subscribe(data => {
-        this.data = data;
-        console.log(data);
-        console.log("format:");
-        console.log(this.data)
       }
     );
   }
@@ -108,13 +87,13 @@ export class MyDashboardComponent implements OnInit {
 
   getDataSettimana() {
     localStorage.setItem("dateSettimana", this.reactiveForm.value.dateSettimana)
-    this.getSettimanaByGiorno(localStorage.getItem("dateSettimana"));
+    this.getSettimanaByGiornoVista(localStorage.getItem("dateSettimana"));
     localStorage.removeItem("dateSettimana");
   }
 
   getDataMese() {
     localStorage.setItem("month", this.month)
-    this.getMese(localStorage.getItem("month"));
+    this.getMeseByVista(localStorage.getItem("month"));
     localStorage.removeItem("month");
   }
 
@@ -122,6 +101,18 @@ export class MyDashboardComponent implements OnInit {
     this.appHealthService.getStatisticaSettimanaleByGiorno(moment().format("yyyy-MM-DD")).subscribe(data => {
       this.data = data;
       this.appHealthService.saveStatisticheSettimanali(data).subscribe(res => {
+        }
+      );
+      this.router.navigateByUrl('dashboard');
+    })
+  }
+
+  submitMese() {
+    this.getDataMese();
+    let mese = localStorage.getItem("month")
+    this.appHealthService.getStatisticaMensileByMese(mese).subscribe(data => {
+      this.data = data;
+      this.appHealthService.saveStatisticheMensili(data).subscribe(res => {
         }
       );
       this.router.navigateByUrl('dashboard');

@@ -11,7 +11,6 @@ export class MyLoginComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-    console.log(moment().format("MM/yyy/DD"))
   }
 
 }
