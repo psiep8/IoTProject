@@ -9,24 +9,25 @@ import * as moment from "moment/moment";
 })
 export class MyChartComponent implements OnInit {
 
-  /*@Input() */data!: any;
+  /*@Input() */
+  data!: any;
   giorno!: any;
 
   constructor(private appHealthService: AppHealthService) {
   }
 
-  ngOnInit(): void {
+  ngOnInit(): void {/*
     this.giorno = moment().format("yyyy-MM-DD")
-    this.getDataByGiorno(this.giorno);
-    console.log("DIO PORCONE")
+    this.getDataByGiorno(this.giorno);*/
   }
 
 
-  getDataByGiorno(giorno: any): void {
+  getDataByGiorno(giorno: any): void {/*
     this.appHealthService.getStatisticheGiornaliereByGiorno(giorno).subscribe(data => {
         this.data = data
         //console.log(this.data)
       }
     );
+  */
   }
 }

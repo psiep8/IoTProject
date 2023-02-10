@@ -37,7 +37,6 @@ export class MyDashboardComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
     this.giornoPost = moment().format("dddd")
     console.log(this.giornoPost)
     this.monthForm = new FormGroup({
@@ -48,8 +47,7 @@ export class MyDashboardComponent implements OnInit {
       dateGiorno: new FormControl(),
       dateSettimana: new FormControl(),
     });
-
-    this.getDataByGiorno("2023-02-08")
+    this.getDataByGiornoVista(moment(Date.now() - 1 * 24 * 3600 * 1000).format('yyyy-MM-DD'))
 
   }
 
@@ -62,9 +60,18 @@ export class MyDashboardComponent implements OnInit {
     this.pieHidden = !this.pieHidden;
   }
 
-  getDataByGiorno(giorno: any): void {
+  getDataByGiornoVista(giorno: any): void {
     this.appHealthService.getStatisticheGiornaliereByGiornoVista(giorno).subscribe(data => {
-        //this.data = this.formatList(data);
+        this.data = data;
+        console.log(data);
+        console.log("format:");
+        console.log(this.data)
+      }
+    );
+  }
+
+  getDataByGiorno(giorno: any): void {
+    this.appHealthService.getStatisticheGiornaliereByGiorno(giorno).subscribe(data => {
         this.data = data;
         console.log(data);
         console.log("format:");
@@ -75,10 +82,8 @@ export class MyDashboardComponent implements OnInit {
 
   getSettimanaByGiorno(giorno: any): void {
     this.appHealthService.getStatisticaSettimanaleByGiorno(giorno).subscribe(data => {
-        //this.data = this.formatList(data);
         this.data = data;
         console.log(data);
-
         console.log("format:");
         console.log(this.data)
       }
@@ -87,7 +92,6 @@ export class MyDashboardComponent implements OnInit {
 
   getMese(mese: any): void {
     this.appHealthService.getStatisticaMensileByMese(mese).subscribe(data => {
-        //this.data = this.formatList(data);
         this.data = data;
         console.log(data);
         console.log("format:");
@@ -96,51 +100,9 @@ export class MyDashboardComponent implements OnInit {
     );
   }
 
-  /*
-    formatList(list: Giornaliero[]): any[] {
-      let sums = [0, 0, 0, 0, 0, 0];
-      list.forEach(value => {
-          sums[0] += (value.attivoGiornaliero as number);
-          sums[1] += (value.inattivoGiornaliero as number);
-          sums[2] += (value.numeroPauseBreviGiornaliere as number);
-          sums[3] += (value.numeroPauseRiposoGiornaliere as number);
-          sums[4] += (value.troppoLontanoGiornaliero as number);
-          sums[5] += (value.troppoVicinoGiornaliero as number)
-        }
-      );
-      console.log(sums);
-      return [
-        {
-          "name": "Attivo giornaliero",
-          "value": sums[0]
-        },
-        {
-          "name": "Inattivo giornaliero",
-          "value": sums[1]
-        },
-        {
-          "name": "Numero pause brevi",
-          "value": sums[2]
-        },
-        {
-          "name": "Numero pause riposo",
-          "value": sums[3]
-        },
-        {
-          "name": "Troppo lontano",
-          "value": sums[4]
-        },
-        {
-          "name": "Troppo vicino",
-          "value": sums[5]
-        }
-      ]
-
-    }
-  */
   getDataGiorno() {
     localStorage.setItem("dateGiorno", this.reactiveForm.value.dateGiorno)
-    this.getDataByGiorno(localStorage.getItem("dateGiorno"));
+    this.getDataByGiornoVista(localStorage.getItem("dateGiorno"));
     localStorage.removeItem("dateGiorno");
   }
 
