@@ -59,8 +59,8 @@ export class MyDashboardComponent implements OnInit {
     let sums = [0,0,0,0,0,0];
     list.forEach(value => {sums[0]+= (value.attivoGiornaliero as number);
     sums[1]+= (value.inattivoGiornaliero as number);
-      sums[2]+= (value.numPauseBreviGiornaliero as number);
-      sums[3]+= (value.numPauseRiposoGiornaliero as number);
+      sums[2]+= (value.numeroPauseBreviGiornaliere as number);
+      sums[3]+= (value.numeroPauseRiposoGiornaliere as number);
       sums[4]+= (value.troppoLontanoGiornaliero as number);
       sums[5]+= (value.troppoVicinoGiornaliero as number)}
     );
@@ -76,11 +76,11 @@ export class MyDashboardComponent implements OnInit {
     },
     {
       "name": "Numero pause brevi",
-      "value": sums[2]
+      "value": 5//sums[2]
     },
     {
       "name": "Numero pause riposo",
-      "value": sums[3]
+      "value": 2//sums[3]
     },
       {
         "name": "Troppo lontano",

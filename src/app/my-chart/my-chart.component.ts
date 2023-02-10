@@ -9,7 +9,7 @@ import * as moment from "moment/moment";
 })
 export class MyChartComponent implements OnInit {
 
-  @Input() data!: any;
+  /*@Input() */data!: any;
   giorno!: any;
 
   constructor(private appHealthService: AppHealthService) {

@@ -4,8 +4,8 @@ export interface Giornaliero {
   idGiornaliero: number;
   attivoGiornaliero: number;
   inattivoGiornaliero: number;
-  numPauseBreviGiornaliero: number;
-  numPauseRiposoGiornaliero: number;
+  numeroPauseBreviGiornaliere: number;
+  numeroPauseRiposoGiornaliere: number;
   troppoLontanoGiornaliero: number;
   troppoVicinoGiornaliero: number;
   ora: number;
