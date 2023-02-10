@@ -22,6 +22,9 @@ export class MyDashboardComponent implements OnInit {
   reactiveForm!: FormGroup;
   dateGiorno!: any;
   dateSettimana!: any;
+  months: string[] = ['JANUARY', 'FEBRUARY', 'MARCH', 'APRIL', 'MAY', 'JUNE', 'JULY', 'AUGUST', 'SEPTEMBER', 'OCTOBER', 'NOVEMBER', 'DECEMBER'];
+  monthForm!: FormGroup;
+
   month!: string;
   statGiornaliere !: Giornaliero;
   statSettimanali!: Settimanale;
@@ -34,9 +37,13 @@ export class MyDashboardComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.monthForm = new FormGroup({
+      months: new FormControl()
+    });
+
     this.reactiveForm = new FormGroup({
       dateGiorno: new FormControl(),
-      dateSettimana: new FormControl()
+      dateSettimana: new FormControl(),
     });
 
     // this.giorno = moment().format("yyyy-MM-DD")
@@ -55,7 +62,7 @@ export class MyDashboardComponent implements OnInit {
 
   getDataByGiorno(giorno: any): void {
     this.appHealthService.getStatisticheGiornaliereByGiorno(giorno).subscribe(data => {
-        //this.data = this.formatList(data);
+        this.data = this.formatList(data);
         this.data = data;
         console.log(data);
 
@@ -68,9 +75,20 @@ export class MyDashboardComponent implements OnInit {
   getSettimanaByGiorno(giorno: any): void {
     this.appHealthService.getStatisticaSettimanaleByGiorno(giorno).subscribe(data => {
         //this.data = this.formatList(data);
-        //this.data = data;
+        this.data = data;
         console.log(data);
 
+        console.log("format:");
+        console.log(this.data)
+      }
+    );
+  }
+
+  getMese(mese: any): void {
+    this.appHealthService.getStatisticaMensileByMese(mese).subscribe(data => {
+        //this.data = this.formatList(data);
+        this.data = data;
+        console.log(data);
         console.log("format:");
         console.log(this.data)
       }
@@ -133,9 +151,10 @@ export class MyDashboardComponent implements OnInit {
   }
 
   getDataMese() {
-    this.reactiveForm.value.month;
-    localStorage.setItem("month", this.reactiveForm.value.month)
-    this.getSettimanaByGiorno(localStorage.getItem("month"));
+    console.log(this.month);
+    localStorage.setItem("month", this.month)
+    this.getMese(localStorage.getItem("month"));
+    localStorage.removeItem("month");
   }
 
 }

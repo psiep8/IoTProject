@@ -40,11 +40,15 @@
             </form>
           </div>
           <div *ngIf="tipo=='mese'">
-            <select [(ngModel)]="month" class="btn btn-sm btn-outline-secondary">
-              <option>JANUARY</option>
-              <option>FEBRUARY</option>
-            </select>
-            <button type="submit" class="btn btn-primary">Seleziona {{tipo}}</button>
+            <form [formGroup]="monthForm" (ngSubmit)="getDataMese()">
+              <select id="months" formControlName="months" class="btn btn-sm btn-outline-secondary" [(ngModel)]="month">
+                <option *ngFor="let m of months" [ngValue]="m">
+                  {{ m }}
+                </option>
+              </select>
+              <button type="submit" class="btn btn-primary">Seleziona {{tipo}}</button>
+
+            </form>
 
           </div>
         </div>
