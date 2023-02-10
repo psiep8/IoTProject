@@ -55,9 +55,6 @@
       </div>
     </div>
     <!-- fine nav-->
-    <div *ngIf="!(giornoPost==='Monday'||giornoPost==='Tuesday')">
-      oggi puoi fare la post!
-    </div>
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap pt-3 pb-2 mb-3 border-bottom">
       <nav class="col-md-2 d-none d-md-block bg-light sidebar">
         <div class="sidebar-sticky">
@@ -136,8 +133,10 @@
           </ul>
         </div>
       </nav>
-      <app-my-chart [hidden]="lineHidden"></app-my-chart>
-      <app-my-chart-test [hidden]="pieHidden" [data]="data"></app-my-chart-test>
+      <div>
+        <app-my-chart [hidden]="lineHidden"></app-my-chart>
+        <app-my-chart-test [hidden]="pieHidden" [data]="data"></app-my-chart-test>
+      </div>
     </div>
 
   </div>

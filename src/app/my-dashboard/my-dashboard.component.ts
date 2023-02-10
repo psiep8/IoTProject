@@ -156,4 +156,14 @@ export class MyDashboardComponent implements OnInit {
     localStorage.removeItem("month");
   }
 
+  submitSettimana() {
+    this.appHealthService.getStatisticaSettimanaleByGiorno(moment().format("yyyy-MM-DD")).subscribe(data => {
+      this.data = data;
+      this.appHealthService.saveStatisticheSettimanali(data).subscribe(res => {
+        }
+      );
+      this.router.navigateByUrl('dashboard');
+    })
+  }
+
 }
