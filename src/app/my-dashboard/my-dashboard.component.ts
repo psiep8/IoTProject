@@ -137,21 +137,18 @@ export class MyDashboardComponent implements OnInit {
   }
 
   getDataGiorno() {
-    this.reactiveForm.value.dateGiorno;
     localStorage.setItem("dateGiorno", this.reactiveForm.value.dateGiorno)
     this.getDataByGiorno(localStorage.getItem("dateGiorno"));
     localStorage.removeItem("dateGiorno");
   }
 
   getDataSettimana() {
-    this.reactiveForm.value.dateSettimana;
     localStorage.setItem("dateSettimana", this.reactiveForm.value.dateSettimana)
     this.getSettimanaByGiorno(localStorage.getItem("dateSettimana"));
     localStorage.removeItem("dateSettimana");
   }
 
   getDataMese() {
-    console.log(this.month);
     localStorage.setItem("month", this.month)
     this.getMese(localStorage.getItem("month"));
     localStorage.removeItem("month");
